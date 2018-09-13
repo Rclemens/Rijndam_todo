@@ -72,9 +72,9 @@ class FirestoreListView extends StatelessWidget {
         String hours = documents[index].data['hours'].toString();
         bool finished = false; //documents[index].data['finished'];
 
-        //return TodoCard(documents[index]);
+        return TodoCard(documents[index]);
 
-          return ListTile(
+        /*  return ListTile(
           title: Text(title),
           subtitle: Text(description),
           enabled: !finished,
@@ -86,7 +86,7 @@ class FirestoreListView extends StatelessWidget {
                       documentToUpdate: documents[index])),
             );
           },
-        ); 
+        ); */
       },
     );
   }
@@ -112,7 +112,7 @@ class _TodoCardState extends State<TodoCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
         Checkbox(
             value: _isChecked,
@@ -120,12 +120,26 @@ class _TodoCardState extends State<TodoCard> {
             onChanged: (bool value) {
               onChanged(value);
             }),
-        Text(
-          widget.documentToUpdate.data['title'],
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.documentToUpdate.data['title'],
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              widget.documentToUpdate.data['description'],
+              style: TextStyle(
+                fontSize: 16.0,
+                //fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        )
       ],
     );
   }
