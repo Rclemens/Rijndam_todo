@@ -1,0 +1,135 @@
+import 'package:flutter/material.dart';
+
+import './todo_manager.dart';
+import './data_manager.dart';
+
+void main() => runApp(new MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.deepOrange,
+        accentColor: Colors.deepPurple,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Rijndam Todo app'),
+        ),
+        body: FirstScreen(), // TodoManager(),
+      ),
+    );
+  }
+}
+
+class FirstScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: TodoManager(),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SecondScreen()),
+          );
+        },
+        tooltip: 'Voeg een taak toe',
+        child: new Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatefulWidget {
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+// Create a corresponding State class. This class will hold the data related to
+// the form.
+class MyCustomFormState extends State<SecondScreen> {
+  // Create a global key that will uniquely identify the Form widget and allow
+  // us to validate the form
+  //
+  // Note: This is a GlobalKey<FormState>, not a GlobalKey<MyCustomFormState>!
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController nameController = new TextEditingController();
+  TextEditingController descController = new TextEditingController();
+  TextEditingController hoursController = new TextEditingController();
+
+  DataManager _dataManager = new DataManager();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    descController.dispose();
+    hoursController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Nieuwe taak"),
+      ),
+      body: Form(
+        key: _formKey,
+        child: Container(
+          padding: EdgeInsets.all(32.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextFormField(
+                controller: nameController,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Je hebt minimaal een naam nodig';
+                  }
+                },
+                decoration: InputDecoration(
+                  labelText: 'Naam',
+                ),
+              ),
+              TextFormField(
+                controller: descController,
+                maxLines: 3,
+                decoration: InputDecoration(
+                    labelText: 'Omschrijving',
+                    hintText: 'Optioneel: Geef een omschrijving'),
+              ),
+              TextFormField(
+                controller: hoursController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    labelText: 'Aantal uur',
+                    hintText:
+                        'Optioneel: Hoe lang denk je ervoor nodig te hebben?'),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: RaisedButton(
+                  onPressed: () {
+                    // Validate will return true if the form is valid, or false if
+                    // the form is invalid.
+                    if (_formKey.currentState.validate()) {
+                      // If the form is valid, we want to show a Snackbar
+                      //Scaffold.of(context).showSnackBar(SnackBar(content: Text('Processing Data')));
+                    }
+                    _dataManager.writeToFile("test", "123");
+                  },
+                  child: Text('Opslaan'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

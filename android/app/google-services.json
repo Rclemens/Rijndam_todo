@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1080829304216",
+    "firebase_url": "https://rijndam-app.firebaseio.com",
+    "project_id": "rijndam-app",
+    "storage_bucket": "rijndam-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080829304216:android:4284df584877bc32",
+        "android_client_info": {
+          "package_name": "com.example.todoappv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080829304216-3c0hrknti25se67cehm553rohk3kqnut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV8Dz4gAlqy9sF1bHpbS4JYwlwfcRph0M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
